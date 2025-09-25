@@ -15,4 +15,10 @@ class MainTest {
     void testListFiles() {
         Main.listFiles("/home/davmunher/ejemplo", "txt");
     }
+
+    @Test
+    void testCreateAndWriteFiles() {
+        Main.createAndWriteFiles("/home/davmunher/ejemplo", 7);
+    }
+
 }
