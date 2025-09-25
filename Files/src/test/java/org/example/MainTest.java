@@ -18,7 +18,13 @@ class MainTest {
 
     @Test
     void testCreateAndWriteFiles() {
-        Main.createAndWriteFiles("/home/davmunher/ejemplo", 7);
+        Main.createAndWriteFiles("/home/davmunher/ejemplo/", 7);
+    }
+
+    @Test
+    void testFindWord() {
+        int times = Main.findWord("/home/davmunher/ejemplo/1.txt", "file");
+        assertEquals(1, times);
     }
 
 }
