@@ -13,5 +13,6 @@ class MainTest {
 
     @Test
     void testListFiles() {
+        Main.listFiles("/home/davmunher/ejemplo", "txt");
     }
 }

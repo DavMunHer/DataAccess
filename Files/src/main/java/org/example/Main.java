@@ -29,7 +29,22 @@ public class Main {
     }
 
     public static void listFiles(String folderPath, String extension) {
+        File folder = new File(folderPath);
 
+        if (!folder.exists() || !folder.isDirectory()) {
+            System.out.println("The specied path does not exist or is not a folder!");
+            return;
+        }
+
+        File[] files = folder.listFiles((file) -> file.getName().toLowerCase().endsWith("." + extension));
+
+        if (files != null && files.length > 0) {
+            for (File f: files) {
+                System.out.println(f.getName());
+            }
+        } else {
+            System.out.println("No files match the specified extension!");
+        }
     }
     // End of act 1
 
