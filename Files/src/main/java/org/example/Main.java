@@ -1,9 +1,6 @@
 package org.example;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class Main {
 
@@ -76,13 +73,48 @@ public class Main {
                     bw.close();
                     fw.close();
                 } else {
-                    System.out.println("File" + newFile.getName() +" already exists!");
+                    System.out.println("File" + newFile.getName() + " already exists!");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
 
+    /*
+    3. Create a method that allows you to search for words in a text file.
+    The number of occurrences of that word should be displayed. Use a buffer for reading.
+    The method should be named `findword`.
+     */
+    public static int findWord(String filePath, String wordToFind) {
+        File f = new File(filePath);
+
+        if (!f.exists()) {
+            System.out.println("The file does not exist!");
+            return -1;
+        }
+
+        try {
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            String line = "";
+            int occurrences = 0;
+            while ((line = br.readLine()) != null) {
+                String[] words = line.split("\\s+");
+                for (int i = 0; i < words.length; i++) {
+                    if (words[i].equals(wordToFind)) {
+                        occurrences++;
+                    }
+                }
+            }
+            System.out.println("Found " + occurrences + " occurrences of the word " + wordToFind);
+            return occurrences;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
 
