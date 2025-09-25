@@ -131,7 +131,6 @@ public class Main {
             return;
         }
         int dotPosition = f.getPath().indexOf('.');
-        System.out.println(f.getPath());
         String outputFileName = f.getPath().substring(0, dotPosition) + "_2.txt";
         File outputFile = new File(outputFileName);
 
@@ -167,7 +166,56 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
+
+    /*
+    5. Create a method that encrypts and another that decrypts the content of a text file
+    using Caesar cipher. Caesar cipher is a type of substitution cipher in which
+    each letter in the text is shifted a certain number of places in the alphabet. For example,
+    with a shift of 2, “A” would be replaced by “C”, “B” would become “D”. With
+    a shift of 5, “C” would be replaced by “H”, “E” would become “J”, etc.
+     */
+    public static void encriptFile(String filePath) {
+        File f = new File(filePath);
+
+        if (!f.exists()) {
+            System.out.println("The input file path does not correspond to an actual file!");
+            return;
+        }
+
+        int dotPosition = f.getPath().indexOf('.');
+        String outputFileName = f.getPath().substring(0, dotPosition) + "_2.txt";
+        File outputFile = new File(outputFileName);
+
+        try {
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            FileWriter fw = new FileWriter(outputFile);
+            BufferedWriter bw = new BufferedWriter(fw);
+            int currentChar;
+
+            while ((currentChar = br.read()) != -1) {
+                int charToWrite = currentChar + 2;
+                // Displaying the enter and the space as usual (evading encryption for this two chars)
+                if (currentChar == 10) {
+                    bw.write("\n");
+                } else if (currentChar == 32) {
+                    bw.write(" ");
+                } else {
+                    bw.write(charToWrite);
+                }
+            }
+
+            br.close();
+            fr.close();
+            bw.close();
+            fw.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

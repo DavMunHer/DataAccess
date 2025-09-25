@@ -32,4 +32,9 @@ class MainTest {
         Main.removeWord("/home/davmunher/ejemplo/1.txt", "file");
     }
 
+    @Test
+    void testFileEncription() {
+        Main.encriptFile("/home/davmunher/ejemplo/7.txt");
+    }
+
 }
