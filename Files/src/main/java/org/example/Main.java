@@ -1,6 +1,9 @@
 package org.example;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Main {
 
@@ -20,7 +23,7 @@ public class Main {
         File[] files = folder.listFiles((file) -> file.getName().toLowerCase().endsWith("." + "txt"));
 
         if (files != null && files.length > 0) {
-            for (File file: files) {
+            for (File file : files) {
                 System.out.println(file.getName());
             }
         } else {
@@ -39,7 +42,7 @@ public class Main {
         File[] files = folder.listFiles((file) -> file.getName().toLowerCase().endsWith("." + extension));
 
         if (files != null && files.length > 0) {
-            for (File f: files) {
+            for (File f : files) {
                 System.out.println(f.getName());
             }
         } else {
@@ -49,7 +52,38 @@ public class Main {
     // End of act 1
 
     /*
-    2. ...
+    2. Create a method that must create n files, name(1).txt, name(2).txt, …, name(n).txt
+    in the folder requested by the user. Inside each file, the phrase
+    ‘This is the file name(n).txt’ must be written.
      */
+    public static void createAndWriteFiles(String folderPath, int filesNumber) {
+        File folder = new File(folderPath);
+
+
+        if (!folder.exists() || !folder.isDirectory()) {
+            System.out.println("The input path does not exist or is not a directory");
+            return;
+        }
+
+        for (int i = 1; i <= filesNumber; i++) {
+            File newFile = new File(folderPath + i + ".txt");
+            try {
+                boolean success = newFile.createNewFile();
+                if (success) {
+                    FileWriter fw = new FileWriter(newFile);
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    bw.write("This is the file " + newFile.getName());
+                    bw.close();
+                    fw.close();
+                } else {
+                    System.out.println("File" + newFile.getName() +" already exists!");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
 
 }
