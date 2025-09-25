@@ -117,5 +117,57 @@ public class Main {
         return -1;
     }
 
+    /*
+    4. Create a method that allows you to remove all occurrences of a given word in a
+    text file. This code will automatically produce a new file with the following
+    nomenclature: if the input file is called file.txt, the generated file will be called
+    file_2.txt.
+     */
+    public static void removeWord(String filePath, String wordToRemove) {
+        File f = new File(filePath);
+
+        if (!f.exists()) {
+            System.out.println("The file path is not valid!");
+            return;
+        }
+        int dotPosition = f.getPath().indexOf('.');
+        System.out.println(f.getPath());
+        String outputFileName = f.getPath().substring(0, dotPosition) + "_2.txt";
+        File outputFile = new File(outputFileName);
+
+        try {
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            String line = null;
+            FileWriter fw = new FileWriter(outputFile);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            while ((line = br.readLine()) != null) {
+                String[] words = line.split("\\s+");
+                String[] newLine = null;
+                for (int i = 0; i < words.length; i++) {
+                    if (words[i].equals(wordToRemove)) {
+                        words[i] = "";
+                    }
+                }
+                newLine = words;
+                for (int i = 0; i < newLine.length; i++) {
+                    if (newLine[i] != "") {
+                        bw.write(newLine[i] + " ");
+                    }
+                }
+                bw.write("\n");
+            }
+            bw.close();
+            fw.close();
+            br.close();
+            fr.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }

@@ -27,4 +27,9 @@ class MainTest {
         assertEquals(1, times);
     }
 
+    @Test
+    void testRemoveWord() {
+        Main.removeWord("/home/davmunher/ejemplo/1.txt", "file");
+    }
+
 }
