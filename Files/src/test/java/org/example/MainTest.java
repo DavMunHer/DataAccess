@@ -37,4 +37,9 @@ class MainTest {
         Main.encriptFile("/home/davmunher/ejemplo/7.txt");
     }
 
+    @Test
+    void testCapitalizeText() {
+        Main.capitalizeText("/home/davmunher/ejemplo/7.txt");
+    }
+
 }
