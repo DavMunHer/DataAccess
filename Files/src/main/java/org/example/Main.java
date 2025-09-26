@@ -217,5 +217,52 @@ public class Main {
         }
     }
 
+    /*
+    6. Create a method that receives a text file and modifies its content so that every
+    word in the file begins with a capital letter.
+     */
+    public static void capitalizeText(String filePath) {
+        File f = new File(filePath);
+
+        if (!f.exists()) {
+            System.out.println("Please enter a valid file path! Could not find any file in the inputted path");
+        }
+
+        int dotPosition = f.getPath().indexOf('.');
+        String outputFileName = f.getPath().substring(0, dotPosition) + "_2.txt.tmp";
+        File tempFile = new File(outputFileName);
+
+        try {
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            FileWriter fw = new FileWriter(tempFile);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                String[] words = line.split("\\s+");
+
+                for (int i = 0; i < words.length; i++) {
+                    words[i] = (words[i].charAt(0) + "").toUpperCase() + words[i].substring(1);
+                    bw.write(words[i] + " ");
+                }
+                bw.write("\n");
+            }
+
+            bw.close();
+            fw.close();
+            br.close();
+            fr.close();
+
+            // We need to delete the previous file and replace it by a new one, since we should not create a FileWriter while the file is already being read
+            f.delete();
+            tempFile.renameTo(f);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
