@@ -1,4 +1,4 @@
-package org.example.jsonSerializable;
+package org.example.jsonSerialize;
 
 public class Car {
     private static long idGenerator = 0;
