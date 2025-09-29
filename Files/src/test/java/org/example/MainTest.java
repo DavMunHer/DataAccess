@@ -39,7 +39,12 @@ class MainTest {
 
     @Test
     void testCapitalizeText() {
-        Main.capitalizeText("/home/davmunher/ejemplo/7.txt");
+        Main.capitalizeText("/home/davmunher/ejemplo/1.txt");
+    }
+
+    @Test
+    void testCombineContent() {
+        Main.combineContent("/home/davmunher/ejemplo/1.txt", "/home/davmunher/ejemplo/2.txt");
     }
 
 }
