@@ -1,5 +1,6 @@
 package org.example.serializable;
 
+import org.example.jsonDeserialize.JSONOps;
 import org.example.jsonDeserialize.JsonCsv;
 import org.example.jsonSerialize.Car;
 import org.example.jsonSerialize.JsonSerialize;
@@ -35,6 +36,11 @@ class SerializableTest {
         List<Car> carList = List.of(c, c2);
 
         JsonSerialize.serializeCars(carList, "/home/davmunher/ejemplo/cars.json");
+    }
+
+    @Test
+    void testSerializeBooks() {
+        JSONOps.serializeList("/home/davmunher/ejemplo/books.json");
     }
 
     // Deserializing JSON
