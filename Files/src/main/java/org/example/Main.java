@@ -182,16 +182,21 @@ public class Main {
             System.out.println("The input file path does not correspond to an actual file!");
             return;
         }
+        FileReader fr = null;
+        BufferedReader br = null;
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+
 
         int dotPosition = f.getPath().indexOf('.');
         String outputFileName = f.getPath().substring(0, dotPosition) + "_2.txt";
         File outputFile = new File(outputFileName);
 
         try {
-            FileReader fr = new FileReader(f);
-            BufferedReader br = new BufferedReader(fr);
-            FileWriter fw = new FileWriter(outputFile);
-            BufferedWriter bw = new BufferedWriter(fw);
+            fr = new FileReader(f);
+            br = new BufferedReader(fr);
+            fw = new FileWriter(outputFile);
+            bw = new BufferedWriter(fw);
             int currentChar;
 
             while ((currentChar = br.read()) != -1) {
@@ -205,7 +210,6 @@ public class Main {
                     bw.write(charToWrite);
                 }
             }
-
             br.close();
             fr.close();
             bw.close();
@@ -262,6 +266,92 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+    /*
+    7. Create a method that receives two text files and combines the contents of both files.
+    To do this, a new file will be created where one word from each file must be added consecutively
+    as long as there are words in each file. If a file runs out of words, the words from the other file must be added.
+    The result must be a string with the words from both files combined.
+     */
+    public static void combineContent(String firstFilePath, String secondFilePath) {
+        File f1 = new File(firstFilePath);
+        File f2 = null;
+        File outputFile = null;
+        FileReader fr1 = null;
+        FileReader fr2 = null;
+        BufferedReader br1 = null;
+        BufferedReader br2 = null;
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+
+        if (!f1.exists()) {
+            System.out.println("The first file path is not valid!");
+            return;
+        }
+
+        f2 = new File(secondFilePath);
+        if (!f2.exists()) {
+            System.out.println("The second file path is not valid!");
+            return;
+        }
+
+        outputFile = new File(f1.getPath().substring(0, f1.getPath().indexOf('.')) + f2.getName());
+
+        try {
+            fr1 = new FileReader(f1);
+            fr2 = new FileReader(f2);
+            br1 = new BufferedReader(fr1);
+            br2 = new BufferedReader(fr2);
+
+            fw = new FileWriter(outputFile);
+            bw = new BufferedWriter(fw);
+
+            int fileOneChar = br1.read();
+            int fileTwoChar = br2.read();
+
+            while ((fileOneChar != -1) || (fileTwoChar != -1)) {
+                String word1 = "";
+
+                while (fileOneChar != -1) {
+                    if (fileOneChar != 32) {
+                        word1 += (char) fileOneChar;
+                    } else {
+                        break;
+                    }
+                    fileOneChar = br1.read();
+                }
+
+                String word2 = "";
+                while (fileTwoChar != -1) {
+                    if (fileTwoChar != 32) {
+                        word2 += (char) fileTwoChar;
+                    } else {
+                        break;
+                    }
+                    fileTwoChar = br2.read();
+                }
+
+                bw.write(word1 + " " + word2 + " ");
+                word1 = "";
+                word2 = "";
+                fileOneChar = br1.read();
+                fileTwoChar = br2.read();
+            }
+            br2.close();
+            br1.close();
+            fr2.close();
+            fr1.close();
+            bw.close();
+            fw.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
