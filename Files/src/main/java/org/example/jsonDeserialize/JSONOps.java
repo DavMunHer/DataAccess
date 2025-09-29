@@ -1,6 +1,7 @@
 package org.example.jsonDeserialize;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.example.jsonSerialize.Book;
 
 import java.io.*;
@@ -39,7 +40,49 @@ public class JSONOps {
             }
 
         }
+    }
 
+    public static ArrayNode deserializeList(String inputJsonFile) {
+        File f = new File(inputJsonFile);
+
+        if (!f.exists()) {
+            System.out.println("The input file does not exist!");
+            return null;
+        }
+
+        if (!f.getName().endsWith(".json")) {
+            System.out.println("The input file is not a json file!");
+            return null;
+        }
+
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        try {
+            fr = new FileReader(f);
+            br = new BufferedReader(fr);
+
+            String jsonLine = br.readLine();
+
+            ObjectMapper om = new ObjectMapper();
+
+            ArrayNode deserializedData = (ArrayNode) om.readTree(jsonLine);
+
+            return deserializedData;
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+                fr.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return null;
     }
 
 }

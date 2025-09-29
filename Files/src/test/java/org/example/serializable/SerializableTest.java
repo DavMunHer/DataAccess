@@ -1,9 +1,11 @@
 package org.example.serializable;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.example.jsonDeserialize.JSONOps;
 import org.example.jsonDeserialize.JsonCsv;
 import org.example.jsonSerialize.Car;
 import org.example.jsonSerialize.JsonSerialize;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -52,5 +54,11 @@ class SerializableTest {
     @Test
     void testReadJsonCsvJackson() {
         JsonCsv.readJsonCsvJackson("language.json", "/home/davmunher/ejemplo/data_1.csv");
+    }
+
+    @Test
+    void testDeserializeBooks() {
+        ArrayNode deserializedInfo = JSONOps.deserializeList("/home/davmunher/ejemplo/books.json");
+        Assertions.assertEquals("123456789", deserializedInfo.get(0).get("isbn").asText());
     }
 }
