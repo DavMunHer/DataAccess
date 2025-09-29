@@ -42,4 +42,9 @@ class SerializableTest {
     void testReadJsonCsv() {
         JsonCsv.readJsonCsv("language.json", "/home/davmunher/ejemplo/data.csv");
     }
+
+    @Test
+    void testReadJsonCsvJackson() {
+        JsonCsv.readJsonCsvJackson("language.json", "/home/davmunher/ejemplo/data_1.csv");
+    }
 }
