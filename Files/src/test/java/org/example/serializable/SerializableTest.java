@@ -4,8 +4,6 @@ import org.example.jsonSerializable.Car;
 import org.example.jsonSerializable.JsonSerialize;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
