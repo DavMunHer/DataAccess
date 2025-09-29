@@ -1,7 +1,8 @@
 package org.example.serializable;
 
-import org.example.jsonSerializable.Car;
-import org.example.jsonSerializable.JsonSerialize;
+import org.example.jsonDeserialize.JsonCsv;
+import org.example.jsonSerialize.Car;
+import org.example.jsonSerialize.JsonSerialize;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -36,4 +37,9 @@ class SerializableTest {
         JsonSerialize.serializeCars(carList, "/home/davmunher/ejemplo/cars.json");
     }
 
+    // Deserializing JSON
+    @Test
+    void testReadJsonCsv() {
+        JsonCsv.readJsonCsv("language.json", "/home/davmunher/ejemplo/data.csv");
+    }
 }
