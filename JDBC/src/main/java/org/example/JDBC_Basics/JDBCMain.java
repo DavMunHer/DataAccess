@@ -1,4 +1,4 @@
-package org.example;
+package org.example.JDBC_Basics;
 
 import io.github.cdimascio.dotenv.Dotenv;
 

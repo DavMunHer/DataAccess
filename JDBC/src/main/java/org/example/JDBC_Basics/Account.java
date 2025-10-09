@@ -1,4 +1,4 @@
-package org.example;
+package org.example.JDBC_Basics;
 
 public class Account {
     private int id;
