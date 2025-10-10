@@ -2,19 +2,21 @@ package org.example.Hogwarts.Entities;
 
 import java.util.Date;
 
-public class Student {
+public class Estudiante {
     private int idEstudiante;
     private String nombre;
     private String apellido;
     private int anoCurso;
-    private Date fechaNacimiento;
+    private String fechaNacimiento;
+    private int idCasa;
 
-    public Student(String nombre, String apellido, int anoCurso, Date fechaNacimiento, int idEstudiante) {
+    public Estudiante(int idEstudiante, String nombre, String apellido, int anoCurso, String fechaNacimiento, int idCasa) {
+        this.idEstudiante = idEstudiante;
         this.nombre = nombre;
         this.apellido = apellido;
         this.anoCurso = anoCurso;
         this.fechaNacimiento = fechaNacimiento;
-        this.idEstudiante = idEstudiante;
+        this.idCasa = idCasa;
     }
 
     public int getIdEstudiante() {
@@ -41,11 +43,11 @@ public class Student {
         this.apellido = apellido;
     }
 
-    public Date getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
