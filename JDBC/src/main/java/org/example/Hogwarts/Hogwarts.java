@@ -2,6 +2,7 @@ package org.example.Hogwarts;
 
 import org.example.Hogwarts.Entities.Asignatura;
 import org.example.Hogwarts.Entities.Estudiante;
+import org.example.Hogwarts.Entities.Mascota;
 
 import java.nio.file.Path;
 import java.sql.*;
@@ -63,6 +64,112 @@ public class Hogwarts {
         }
         return filteredSubjects;
     }
+
+    public static Mascota getPetFrom(Connection con, String ownerName, String ownerSurname) throws SQLException {
+        String SQLQuery = """
+                SELECT m.id_mascota, m.nombre_mascota, m.especie FROM 
+                Mascota m INNER JOIN Estudiante e
+                ON m.id_estudiante = e.id_estudiante
+                WHERE e.nombre = ? AND e.apellido = ?           
+                """;
+        PreparedStatement ps = con.prepareStatement(SQLQuery);
+        ps.setString(1, ownerName);
+        ps.setString(2, ownerSurname);
+
+        ResultSet rs = ps.executeQuery();
+        Mascota pet = null;
+        while (rs.next()) {
+            pet = new Mascota(
+                    rs.getInt("id_mascota"),
+                    rs.getString("nombre_mascota"),
+                    rs.getString("especie")
+            );
+            break;
+        }
+        return pet;
+    }
+
+    public static List<Estudiante> getStudentsWithoutPet(Connection con) throws SQLException {
+        String SQLQuery = """
+                SELECT * FROM Estudiante e
+                WHERE NOT EXISTS (SELECT 1 from Mascota WHERE id_estudiante = e.id_estudiante)
+                """;
+        PreparedStatement ps = con.prepareStatement(SQLQuery);
+
+        ResultSet rs = ps.executeQuery();
+
+        List<Estudiante> students = new ArrayList<>();
+
+        while (rs.next()) {
+            students.add(
+                    new Estudiante(
+                            rs.getInt("id_estudiante"),
+                            rs.getString("nombre"),
+                            rs.getString("apellido"),
+                            rs.getInt("año_curso"),
+                            rs.getString("fecha_nacimiento"),
+                            rs.getInt("id_casa")
+                    )
+            );
+        }
+        return students;
+    }
+
+    public static double getAvarageScore(Connection con, String name, String surname) throws SQLException {
+        String query = """
+                SELECT AVG(calificacion) as avg FROM Estudiante_Asignatura
+                WHERE id_estudiante =
+                (SELECT id_estudiante FROM Estudiante WHERE nombre = ? AND apellido = ?);
+                """;
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, name);
+        ps.setString(2, surname);
+        ResultSet rs = ps.executeQuery();
+
+        double avgScore = 0;
+        while (rs.next()) {
+            avgScore = rs.getDouble("avg");
+            break;
+        }
+        return avgScore;
+    }
+
+
+    public static int getStudentsPerHome(Connection con, String houseName) throws SQLException {
+        String query = """
+                SELECT Casa.nombre_casa, COUNT(*) AS Students
+                FROM Estudiante es INNER JOIN Casa ON es.id_casa = Casa.id_casa
+                WHERE Casa.nombre_casa = ?
+                GROUP BY es.id_casa;        
+                """;
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, houseName);
+
+        ResultSet rs = ps.executeQuery();
+
+        int studentsPerHome = 0;
+        while (rs.next()) {
+            studentsPerHome = rs.getInt("Students");
+            break;
+        }
+        return studentsPerHome;
+    }
+
+
+    public static int insertNewStudent(Connection con, String name, String surname, int courseYear, String birthDate, int houseId) throws SQLException {
+        String query = """
+                INSERT INTO Estudiante(nombre, apellido, año_curso, fecha_nacimiento, id_casa) VALUES (?, ?, ?, ?, ?);
+                """;
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, name);
+        ps.setString(2, surname);
+        ps.setInt(3, courseYear);
+        ps.setString(4, birthDate);
+        ps.setInt(5, houseId);
+
+        return ps.executeUpdate();
+    }
+
 
 
     public static void main(String[] args) {
