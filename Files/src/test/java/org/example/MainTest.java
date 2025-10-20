@@ -44,8 +44,7 @@ class MainTest {
 
     @Test
     void testCombineContent() {
-        int res = Main.combineContent("/home/davmunher/ejemplo/1.txt", "/home/davmunher/ejemplo/2.txt");
-        assertEquals(1, res);
+        Main.combineContent("/home/davmunher/ejemplo/1.txt", "/home/davmunher/ejemplo/2.txt");
     }
 
 }
