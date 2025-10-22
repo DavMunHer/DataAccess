@@ -80,5 +80,9 @@ For deserializing the data, the process will be similar:
         myDataList.add(myData);
     }
     ```
-
+- Extra:
+  - You can also read the json file directly from a File instance instead of only reading the text:
+    ```java
+    List<MyOwnClass> myDeserializedData = objectMapper.readValue(path.toFile(), new TypeReference<List<MyOwnClass>>() { });
+    ```
 
