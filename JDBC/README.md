@@ -1,6 +1,23 @@
 # JDBC
 
 ## Steps to follow to make a connection and run sql through Java:
+- Before starting with the code:
+  - Before coding anything, you will need to install the driver for your database for stablishing the connection in the `pom.xml` file. For example, for mysql:
+    ```xml
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>9.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.50.3.0</version>
+        </dependency>
+    ```
+
+
 1. Start the db connection
    - For starting the db connection we need an instance of Connection, which comes from **java.sql.Connection**
      - For instancing this object, we don't use the new keyword, but be use a **factory method**. 
