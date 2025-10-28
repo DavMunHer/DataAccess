@@ -19,6 +19,8 @@ public interface ClienteDAO {
      */
     Cliente findById(Long id);
 
+    Cliente findByIdEager(Long id);
+
 
 
     Cliente findByLastName(String lastName);

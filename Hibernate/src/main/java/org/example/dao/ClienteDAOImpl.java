@@ -1,6 +1,7 @@
-package org.example.entities.dao;
+package org.example.dao;
 
 import org.example.entities.Cliente;
+import org.example.entities.dao.ClienteDAO;
 import org.example.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -25,6 +26,16 @@ public class ClienteDAOImpl implements ClienteDAO {
         session.close();
         return cliente;
     }
+
+    @Override
+    public Cliente findByIdEager(Long id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Cliente cliente = session.createQuery("from Cliente c join fetch c.cuentas where c.id = :id", Cliente.class).setParameter("id", id).uniqueResult();
+//        Cliente cliente = session.find(Cliente.class, id);
+        session.close();
+        return cliente;
+    }
+
 
     @Override
     public Cliente findByLastName(String lastName) {

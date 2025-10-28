@@ -1,5 +1,5 @@
-package org.example.entities.dao;
 
+import org.example.dao.ClienteDAOImpl;
 import org.example.entities.Cliente;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
