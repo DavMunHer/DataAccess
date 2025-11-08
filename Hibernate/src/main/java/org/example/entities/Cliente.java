@@ -2,6 +2,9 @@ package org.example.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "clientes")
 
@@ -21,6 +24,9 @@ public class Cliente {
 
     @Column(name = "edad")
     private Integer edad;
+
+    @OneToMany (mappedBy = "cliente")
+    List<Cuenta> cuentas = new ArrayList<>();
 
     public Cliente() {}
 
@@ -70,6 +76,14 @@ public class Cliente {
 
     public void setEdad(Integer edad) {
         this.edad = edad;
+    }
+
+    public List<Cuenta> getCuentas() {
+        return cuentas;
+    }
+
+    public void setCuentas(List<Cuenta> cuentas) {
+        this.cuentas = cuentas;
     }
 
     @Override
